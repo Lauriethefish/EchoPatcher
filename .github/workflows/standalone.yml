@@ -1,0 +1,31 @@
+name: Standalone
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        target: [{"runtime": 'ubuntu-x64', "artifact": "EchoPatcher-ubuntu.zip"}, {"runtime": 'win-x64', "artifact": "EchoPatcher-windows.zip"}]
+
+    runs-on: windows-latest
+    name: Build for ${{ matrix.target.runtime }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build ${{ matrix.target.runtime }}
+      run: dotnet publish EchoPatcher/EchoPatcher.csproj -r ${{ matrix.target.runtime }} -c Release
+    - name: Copy license
+      run: cp LICENSE EchoPatcher/bin/Release/net7.0/${{ matrix.target.runtime }}/publish/LICENSE.txt
+    - name: Artifact Upload ${{ matrix.target.runtime }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.target.runtime }}/

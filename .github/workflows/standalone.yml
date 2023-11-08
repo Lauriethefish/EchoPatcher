@@ -33,6 +33,7 @@ jobs:
     - name: Copy license
       run: cp LICENSE.txt EchoPatcher/bin/Release/net7.0/${{ matrix.target.runtime }}/publish/LICENSE.txt
     - name: Artifact Upload ${{ matrix.target.runtime }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.target.runtime }}/
+        name: ${{ matrix.target.runtime }}
+        path: EchoPatcher/bin/Release/net7.0/${{ matrix.target.runtime }}/publish/**

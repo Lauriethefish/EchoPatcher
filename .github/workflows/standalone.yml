@@ -27,7 +27,7 @@ jobs:
       name: Download libr15loader
       with:
         url: "https://github.com/RedBrumbler/Libr15Loader/releases/latest/download/libr15.so"
-        target: EchoPatcher/Resources/libr15.so
+        target: EchoPatcher/Resources/
     - name: Build ${{ matrix.target.runtime }}
       run: dotnet publish EchoPatcher/EchoPatcher.csproj -r ${{ matrix.target.runtime }} -c Release
     - name: Copy license

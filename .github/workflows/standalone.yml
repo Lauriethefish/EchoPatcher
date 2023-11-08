@@ -8,9 +8,12 @@ jobs:
   build:
     strategy:
       matrix:
-        target: [{"runtime": 'ubuntu-x64', "artifact": "EchoPatcher-ubuntu.zip"}, {"runtime": 'win-x64', "artifact": "EchoPatcher-windows.zip"}]
+        target: [
+            {"runtime": 'ubuntu-x64', "artifact": "EchoPatcher-ubuntu.zip", "runner-needed": "ubuntu-latest"},
+            {"runtime": 'win-x64', "artifact": "EchoPatcher-windows.zip", "runner-needed": "windows-latest"}
+        ]
 
-    runs-on: windows-latest
+    runs-on: ${{ matrix.target.runner-needed }}
     name: Build for ${{ matrix.target.runtime }}
 
     steps:

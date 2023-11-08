@@ -31,7 +31,7 @@ jobs:
     - name: Build ${{ matrix.target.runtime }}
       run: dotnet publish EchoPatcher/EchoPatcher.csproj -r ${{ matrix.target.runtime }} -c Release
     - name: Copy license
-      run: cp LICENSE EchoPatcher/bin/Release/net7.0/${{ matrix.target.runtime }}/publish/LICENSE.txt
+      run: cp LICENSE.txt EchoPatcher/bin/Release/net7.0/${{ matrix.target.runtime }}/publish/LICENSE.txt
     - name: Artifact Upload ${{ matrix.target.runtime }}
       uses: actions/upload-artifact@v2
       with:

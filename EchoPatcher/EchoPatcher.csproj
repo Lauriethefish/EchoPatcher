@@ -23,17 +23,12 @@
     <PlatformTools>https://dl.google.com/android/repository/platform-tools-latest-linux.zip</PlatformTools>
   </PropertyGroup>
 
-  <Target Name="DownloadResources" BeforeTargets="Build">
-    <DownloadFile SourceUrl="$(LibR15)"
-                  DestinationFolder="$(MSBuildProjectDirectory)/Resources"
-                  DestinationFileName="libr15.so"
-                  SkipUnchangedFiles="true">
+  <Target Name="DownloadResources" BeforeTargets="Restore">
+    <DownloadFile SourceUrl="$(LibR15)" DestinationFolder="$(MSBuildProjectDirectory)/Resources" DestinationFileName="libr15.so" SkipUnchangedFiles="true">
       <Output TaskParameter="DownloadedFile" ItemName="Content" />
     </DownloadFile>
 
-    <DownloadFile SourceUrl="$(PlatformTools)"
-                  DestinationFolder="$(MSBuildProjectDirectory)/Resources"
-                  DestinationFileName="platform-tools.zip">
+    <DownloadFile SourceUrl="$(PlatformTools)" DestinationFolder="$(MSBuildProjectDirectory)/Resources" DestinationFileName="platform-tools.zip">
       <Output TaskParameter="DownloadedFile" ItemName="Content" />
     </DownloadFile>
   </Target>
@@ -45,5 +40,9 @@
     <PackageReference Include="QuestPatcher.Axml" Version="1.0.2" />
     <PackageReference Include="Serilog" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

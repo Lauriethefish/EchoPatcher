@@ -15,7 +15,7 @@ namespace EchoPatcher
             }
             else
             {
-                Log.Debug("Using {ResourceName} from resources");
+                Log.Debug("Using {ResourceName} from resources", name);
                 return Assembly.GetExecutingAssembly().GetManifestResourceStream($"EchoPatcher.Resources.{name}")
                     ?? throw new MissingResourceException(name);
             }

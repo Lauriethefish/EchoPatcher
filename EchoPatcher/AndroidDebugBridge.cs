@@ -19,7 +19,7 @@ namespace EchoPatcher
             _downloadedAdbName = Path.Combine(_platformToolsExtractPath, "platform-tools", _adbExecutableName);
         }
 
-        public ProcessOutput RunCommand(string command)
+        public ProcessOutput RunCommand(string command, bool throwOnFailure = true)
         {
             if (_adbPath == null)
             {
@@ -29,7 +29,7 @@ namespace EchoPatcher
             Log.Debug("Executing ADB command: adb {Command}", command);
             var output = ProcessUtil.InvokeAndCaptureOutput(_adbPath, command);
 
-            if (output.ExitCode == 0 || output.ExitCode == -1073740940)
+            if (output.ExitCode == 0 || output.ExitCode == -1073740940 || !throwOnFailure)
             {
                 return output;
             }
@@ -80,7 +80,7 @@ namespace EchoPatcher
 
         public bool DownloadApk(string packageId, string destination)
         {
-            string rawAppPath = RunCommand($"shell pm path {packageId}").StandardOutput;
+            string rawAppPath = RunCommand($"shell pm path {packageId}", false).StandardOutput;
             if (rawAppPath.Trim().Length == 0)
             {
                 return false;

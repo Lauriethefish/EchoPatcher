@@ -10,7 +10,7 @@ namespace EchoPatcher
             // Use an override file if exists
             if (File.Exists(name))
             {
-                Log.Debug("Using {ResourceName} from local path");
+                Log.Debug("Using {ResourceName} from local path", name);
                 return File.OpenRead(name);
             }
             else

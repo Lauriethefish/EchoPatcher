@@ -48,12 +48,12 @@ namespace EchoPatcher
             // Attempt to extract our built-in ADB executable
             if (existingAdbPath == null)
             {
-                if (!Directory.Exists(_platformToolsExtractPath))
+                if (!Directory.Exists(_platformToolsExtractPath) || !File.Exists(_downloadedAdbName))
                 {
                     Log.Debug("Extracting ADB");
                     using var platformTools = Util.GetResource("platform-tools.zip");
                     using var archive = new ZipArchive(platformTools);
-                    archive.ExtractToDirectory(_platformToolsExtractPath);
+                    archive.ExtractToDirectory(_platformToolsExtractPath, true);
                 }
 
                 _adbPath = _downloadedAdbName;

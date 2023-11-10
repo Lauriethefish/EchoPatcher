@@ -4,15 +4,19 @@ using Serilog;
 internal class Program
 {
     const string PackageId = "com.readyatdawn.r15";
+    const string VerboseFlag = "-v";
 
     public static int Main(string[] args)
     {
-        SetupLogging();
+        string[] argsWithoutFlag = args
+            .Where(arg => !arg.Equals(VerboseFlag, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        SetupLogging(argsWithoutFlag.Length != args.Length);
 
         int exitCode;
         try
         {
-            exitCode = Cli(args);
+            exitCode = Cli(argsWithoutFlag);
         }
         catch (Exception ex)
         {
@@ -91,10 +95,15 @@ internal class Program
         return 0;
     }
 
-    private static void SetupLogging()
+    private static void SetupLogging(bool verbose)
     {
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
+        var config = new LoggerConfiguration();
+        if (verbose)
+        {
+            config.MinimumLevel.Verbose();
+        }
+
+        Log.Logger = config
             .WriteTo.Console(outputTemplate: "[{Level:u3}] {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
     }

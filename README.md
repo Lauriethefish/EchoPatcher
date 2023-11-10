@@ -9,6 +9,6 @@ To patch an APK:
 
 `echopatcher <apk path>`
 
-To pull the current APK from the Quest, patch it, then reinstall it: (CURRENTLY UNIMPLEMENTED)
+To pull the current APK from the Quest, patch it, then reinstall it:
 
 `echopatcher`

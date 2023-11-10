@@ -11,13 +11,39 @@
     <PublishAot>true</PublishAot>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <LibR15>https://github.com/RedBrumbler/Libr15Loader/releases/latest/download/libr15.so</LibR15>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <PlatformTools>https://dl.google.com/android/repository/platform-tools-latest-windows.zip</PlatformTools>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(OS)' == 'Unix' ">
+    <PlatformTools>https://dl.google.com/android/repository/platform-tools-latest-linux.zip</PlatformTools>
+  </PropertyGroup>
+
+  <Target Name="DownloadResources" BeforeTargets="Build">
+    <DownloadFile SourceUrl="$(LibR15)"
+                  DestinationFolder="$(MSBuildProjectDirectory)/Resources"
+                  DestinationFileName="libr15.so"
+                  SkipUnchangedFiles="true">
+      <Output TaskParameter="DownloadedFile" ItemName="Content" />
+    </DownloadFile>
+
+    <DownloadFile SourceUrl="$(PlatformTools)"
+                  DestinationFolder="$(MSBuildProjectDirectory)/Resources"
+                  DestinationFileName="platform-tools.zip">
+      <Output TaskParameter="DownloadedFile" ItemName="Content" />
+    </DownloadFile>
+  </Target>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />
 
-    <PackageReference Include="QuestPatcher.Zip" Version="1.1.2"/>
+    <PackageReference Include="QuestPatcher.Zip" Version="1.1.2" />
     <PackageReference Include="QuestPatcher.Axml" Version="1.0.2" />
     <PackageReference Include="Serilog" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
   </ItemGroup>
-
 </Project>

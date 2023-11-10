@@ -74,7 +74,7 @@ internal class Program
         Log.Information("Finding ADB installation");
         adb.PrepareAdbExecutable();
 
-        Log.Information("Downloading ADB from Quest");
+        Log.Information("Downloading APK from Quest");
         string tempApkPath = Path.Combine(temp, "temp.apk");
         if (!adb.DownloadApk(PackageId, tempApkPath))
         {

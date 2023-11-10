@@ -115,9 +115,9 @@ namespace EchoPatcher
 
             var addingPerms = new List<string>
             {
-                "READ_EXTERNAL_STORAGE",
-                "WRITE_EXTERNAL_STORAGE",
-                "MANAGE_EXTERNAL_STORAGE"
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.WRITE_EXTERNAL_STORAGE",
+                "android.permission.MANAGE_EXTERNAL_STORAGE"
             };
 
             var existingPerms = rootElement.Children
